@@ -1,0 +1,25 @@
+{
+  "builders": [{
+    "type": "virtualbox-ovf",
+    "vm_name": "packer-sles11sp4",
+    "source_path": "/home/gdha/packer/sles11sp4.ovf",
+    "ssh_username": "{{user `ssh_name`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "ssh_port": 22,
+    "ssh_wait_timeout": "10000s",
+    "shutdown_command": "echo '{{user `ssh_name`}}'|sudo -S /sbin/halt -h -p"
+  }],
+  "post-processors": [{
+    "type": "vagrant",
+    "compression_level": "{{user `compression_level`}}",
+    "output": "sles11sp4-virtualbox.box"
+  }],
+  "variables": {
+    "compression_level": "6",
+    "cpus": "1",
+    "ssh_timeout": "60m",
+    "ssh_name": "vagrant",
+    "ssh_pass": "vagrant"
+  }
+}
+
